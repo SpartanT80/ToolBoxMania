@@ -11,7 +11,6 @@ function Home() {
 
     const [categories, setCategories] = useState(null);
 
-
     useEffect(() => {
         async function fetchCategories() {
 

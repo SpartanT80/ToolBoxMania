@@ -75,14 +75,12 @@ function Form() {
                 toolId,
                 packagingId
             };
-            console.log("dataPackaging ==== ", dataPackaging);
 
 
             await addDatas("/tool_packaging/add", dataPackaging);
-            console.log('Document ajouté avec succès');
 
         } catch (error) {
-            console.error(`Erreur lors de l'ajout du document: `, error);
+            throw Error(error);
         }
     };
 

@@ -15,7 +15,6 @@ function Admin() {
 
             <section className={styles.productListadmin}>
                 <h3>Product List</h3>
-
                 <ProductList />
             </section>
         </main>

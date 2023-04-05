@@ -21,7 +21,7 @@ function HOCAuth({ child, auth }) {
                     }
                 }
                 if (res.code || !TOKEN) navigate("/");
-                if (!res.data.result || !res.data.result.isAdmin) {
+                if (!res.data.result || !res.data.result.isAdmin) { // check if user is Admin
                     navigate("/", { state: { error: "You are not a admin !!!" } });
                 }
             }

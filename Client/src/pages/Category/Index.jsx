@@ -35,7 +35,6 @@ function Category() {
                                     <h3>{c.title}</h3>
                                 </Link>
                             </section>
-
                         )
                     })
                     :
@@ -53,7 +52,6 @@ function Category() {
                                     <img src={`/img/tool/${t.image_name}`} alt={`/img/tool/${t.image_alt}`} />
                                 </Link>
                             </section>
-
                         )
                     })
                     :
