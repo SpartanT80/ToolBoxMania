@@ -1,0 +1,31 @@
+.form{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin: 2.5rem auto;
+    gap: 1rem;
+}
+
+.label{
+    font-size: 1.6rem;
+}
+
+.select{
+    border-radius: 3rem;
+    padding: 1rem;
+    margin-left: 1rem;
+}
+
+.inputs{
+    border-radius: 3rem;
+    padding: 1rem;
+}
+
+.btnSend {
+    border: none;
+    text-transform: uppercase;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}

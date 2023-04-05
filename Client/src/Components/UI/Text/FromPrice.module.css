@@ -1,0 +1,11 @@
+.priceCtn {
+    width: 90px;
+    margin: 20px auto 10px;
+}
+
+.price {
+    display: inline-block;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.8rem;
+}

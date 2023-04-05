@@ -1,0 +1,86 @@
+.section {
+    margin: 2rem;
+}
+
+.toolTitle {
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+.toolImg {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.details h3 {
+    font-size: 2rem;
+}
+
+form {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    margin-right: 1rem;
+}
+
+.toolPrice {
+    font-weight: bold;
+    margin: 0;
+}
+
+.addToCart {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.addToCart:hover {
+    background-color: #0062cc;
+}
+
+
+
+@media screen and (min-width: 768px) {
+    .section {
+        display: grid;
+        background-color: #e6e6e6;
+        margin: 10px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .toolImg {
+        grid-row-start: 1;
+        grid-row-end: 12;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        border-radius: 10px;
+        padding: 10px;
+        border-radius: 20px;
+    }
+
+
+    .toolTitle,
+    .toolDescription,
+    .toolVote,
+    form,
+    .toolPrice,
+    .addToCart {
+        grid-column-start: 2;
+        grid-column-end: 3;
+    }
+}

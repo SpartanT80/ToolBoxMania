@@ -1,0 +1,89 @@
+.container {
+    margin-bottom: 2rem;
+}
+
+.categoryTitle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.description {
+    margin-bottom: 1rem;
+}
+
+.tool {
+    margin-bottom: 1rem;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.card {
+    border-radius: 5px;
+    background-color: #e6e6e6;
+    transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    min-width: 250px;
+    margin: auto;
+}
+
+.card:hover {
+    background-color: #ddd;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.cardImageContainer {
+    width: 6rem;
+    height: 6rem;
+    margin-top: 5px;
+}
+
+.cardImage {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cardTitle {
+    margin-bottom: 0;
+}
+
+.cardDescription {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .linkContainer {
+        display: inline-flex !important;
+    }
+
+    .cardContainer {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .card {
+        width: fit-content;
+        margin: 0;
+    }
+}

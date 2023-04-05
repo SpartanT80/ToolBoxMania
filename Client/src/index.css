@@ -1,0 +1,58 @@
+/* font family rules
+
+title, nav ==>> font-family: 'Martel', serif;
+text ==>> font-family: 'Nunito', sans-serif; */
+
+
+:root {
+    --primary-color: #195E56;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background-color: whitesmoke;
+    color: rgb(53, 52, 52);
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+}
+
+a, nav button {
+    text-decoration: none;
+    color: #000;
+    margin: auto;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    margin: auto;
+}
+
+h1, h2 {
+    font-family: 'Martel', serif;
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+
+h2 {
+    color: green;
+    font-size: 3rem;
+}
+
+p {
+    padding: 10px;
+    margin: 10px;
+}
