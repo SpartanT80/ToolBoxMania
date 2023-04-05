@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { modifyCart } from '../../store/slices/cart';
-import { calculateTotalAmount, removeFromCart, addOneToCart, deleteOneFromCart } from '../../helpers/cart';
+import { calculateTotalAmount, addOneToCart, deleteOneFromCart } from '../../helpers/cart';
 
 import style from "./cart.module.css";
 

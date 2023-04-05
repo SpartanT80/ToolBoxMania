@@ -20,25 +20,9 @@ function About() {
             <section className={style.ourTeam}>
                 <Title level={2} title={"Our team"} />
                 <div className={style.team}>
-
-                    <article className={style["team-member"]}>
-                        <img src={pierre} alt="Pierre" />
-                        <h3>Pierre</h3>
-                        <Wrapper text={text.pierre} />
-                    </article>
-
-                    <article className={style["team-member"]}>
-                        <img src={julie} alt="Julie" />
-                        <h3>Julie</h3>
-                        <Wrapper text={text.julie} />
-                    </article>
-
-                    <article className={style["team-member"]}>
-                        <img src={thomas} alt="Thomas" />
-                        <h3>Thomas</h3>
-                        <Wrapper text={text.thomas} />
-                    </article>
-
+                        <Wrapper image={pierre} title="Pierre" text={text.pierre} />
+                        <Wrapper image={julie} title="Julie" text={text.julie} />
+                        <Wrapper image={thomas} title="Thomas" text={text.thomas} />
                 </div>
             </section>
 

@@ -1,4 +1,4 @@
-Mobile First
+
 .ctn {
     display: grid;
     grid-template-columns: 1fr;
@@ -52,24 +52,24 @@ section {
         padding-bottom: 20px;
     }
 
-    .team-member {
+    .teamMember {
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
 
-    .team-member img {
+    .teamMember img {
         border-radius: 50%;
         width: 150px;
         margin-bottom: 1rem;
     }
 
-    .team-member h3 {
+    .teamMember h3 {
         margin: 0.5rem 0;
     }
 
-    .team-member p {
+    .teamMember p {
         margin: 0;
         line-height: 1.5;
     }
@@ -98,7 +98,7 @@ section {
         display: flex;
         justify-content: space-between;
     }
-    .team-member {
+    .teamMember {
         display: block;
         max-width: 33%;
     }
