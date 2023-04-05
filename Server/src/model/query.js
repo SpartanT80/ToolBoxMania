@@ -20,7 +20,6 @@ class Query{
         const result = await pool.execute(query, [id]);
         return result;
     }
-    
 }
 
 export default Query

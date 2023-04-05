@@ -1,6 +1,4 @@
 import { Router } from 'express';
-
-import { isAdmin } from "../../controllers/admin.js";
 import {all, one, add, update, remove} from '../../controllers/toolPackaging.js'
 
 const router = Router();

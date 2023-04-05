@@ -3,7 +3,6 @@ import Query from "../model/query.js";
 
 export const all = async (req, res) => {
     try {
-        // const query = "SELECT * FROM tool";
         const query = "SELECT tool.id, tool.category_id, main_title, secondary_title, main_description, image_name, image_alt, avg_vote, vote_count, ref_product, created_at, MIN(price) as price FROM tool JOIN tool_packaging ON tool_packaging.tool_id = tool.id JOIN packaging ON tool_packaging.packaging_id = packaging.id GROUP BY main_title";
         const [tools] = await Query.find(query);
         if (tools.length) {
@@ -17,7 +16,6 @@ export const all = async (req, res) => {
         throw Error(err);
     }
 }
-
 
 export const one = async (req, res) => {
     try {
@@ -67,7 +65,6 @@ export const toolsByCategory = async (req, res) => {
     }
 };
 
-
 export const lastInserted = async (req, res) => {
     try {
         const query = "SELECT id, main_title, secondary_title, main_description, created_at, image_name, image_alt, (SELECT MIN(price) FROM tool_packaging WHERE tool_id = tool.id) AS price FROM tool ORDER BY created_at DESC LIMIT 1";
@@ -85,7 +82,6 @@ export const lastInserted = async (req, res) => {
     }
 }
 
-
 export const add_tool = async (req, res) => {
     try {
         const query = "INSERT INTO tool (main_title, secondary_title, main_description, image_name, image_alt, ref_product, created_at, category_id) VALUES (?, ?, ?, ?, ?, ?, NOW(),  ?)";
@@ -102,7 +98,6 @@ export const add_tool = async (req, res) => {
     }
 }
 
-
 export const add_toolPackaging = async (req, res) => {
     try {
         const query = "INSERT INTO tool_packaging (quantity_in_stock, price, tool_id, packaging_id) VALUES (?, ?, ?, ?)";
@@ -118,7 +113,6 @@ export const add_toolPackaging = async (req, res) => {
         throw Error(err);
     }
 }
-
 
 export const update = async (req, res) => {
     try {

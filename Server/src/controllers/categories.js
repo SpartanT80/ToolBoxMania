@@ -1,7 +1,6 @@
 import { success } from "../helpers/index.js";
 import Query from "../model/query.js";
 
-
 export const all = async (req, res) => {
     try {
         const query = "SELECT *  FROM category";

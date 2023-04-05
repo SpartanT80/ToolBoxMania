@@ -55,8 +55,6 @@ function ProductList() {
         }
     };
 
-
-
     return (
         <section className={style.ctn}>
             <table>
@@ -147,7 +145,6 @@ function ProductList() {
             )}
         </section>
     );
-
 }
 
 export default ProductList;

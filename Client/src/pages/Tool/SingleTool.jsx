@@ -44,7 +44,7 @@ function SingleTool() {
         setPrice(tool.toolInfo[e.target.value - 1].price)
     };
 
-    const handleAddToCart = (e) => {
+    const handleAddToCart = () => {
         const toolToAdd = {
             id: tool.id,
             name: tool.main_title, 

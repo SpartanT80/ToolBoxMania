@@ -8,8 +8,6 @@ function Form() {
     const [categories, setCategories] = useState(null);
     const [packagings, setPackagings] = useState(null);
 
-
-
     const [inputs, setInputs] = useState({
         main_title: "",
         secondary_title: "",
@@ -88,7 +86,6 @@ function Form() {
         }
     };
 
-
     return (
         <form className={styles.form} onSubmit={handleSubmit} >
             <Input
@@ -147,7 +144,6 @@ function Form() {
                             <option value={c.id} key={c.id}>{c.title}</option>
                         )
                     }
-
                 </select>
             </label>
 
@@ -175,8 +171,6 @@ function Form() {
                             <option value={p.id} key={p.id}>{p.type}</option>
                         )
                     }
-
-
                 </select>
             </label>
 

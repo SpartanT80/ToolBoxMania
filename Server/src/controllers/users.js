@@ -23,9 +23,7 @@ const checkToken = async (req, res) => {
     }
 }
 
-
 const signup = async (req, res) => {
-    console.log(req.body);
     try {
         const query = "SELECT email, password FROM user WHERE email = ?";
         const [isUserExist] = await Query.findOne(query, req.body.email);
@@ -55,9 +53,6 @@ const signup = async (req, res) => {
     }
 }
 
-
-
-
 const signin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -73,7 +68,6 @@ const signin = async (req, res) => {
         if (isSame) {
             const TOKEN = jwt.sign({ id: user.id }, TOKEN_SECRET);
             const { email } = user;
-            console.log(TOKEN);
             res.status(200).json(success("Connected", { TOKEN, email, first_name: user.first_name, last_name: user.last_name, address: user.address, city: user.city, postal_code: user.postal_code, country: user.country, phone_number: user.phone_number }));
         } else {
             res.status(401).json(error("Identification problem2"));

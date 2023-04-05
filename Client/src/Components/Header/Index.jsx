@@ -13,7 +13,6 @@ import logo from "../../assets/Logo2.png"
 function Header() {
     const dispatch = useDispatch();
     const { user, cart } = useSelector(state => state);
-    console.log(user)
 
     const navigate = useNavigate();
 

@@ -23,7 +23,6 @@ function Tool() {
             } catch (err) {
                 throw new Error(err);
             }
-
         }
         fetchData();
     }, []);
@@ -74,7 +73,6 @@ function Tool() {
                 })}
         </>
     );
-
 }
 
 export default Tool;

@@ -19,7 +19,6 @@ function Wrapper({pathImg, item}) {
 
                     <FromPrice item={item} />
                     
-
                     <Button id={item.id}>See more</Button>
                 </>
             }

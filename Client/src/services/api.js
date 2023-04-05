@@ -1,7 +1,5 @@
 import axios from "axios";
 
-
-
 async function getUserAuth(url, TOKEN){
     try{
         return await axios.get(url, {headers: {"x-access-token" : TOKEN}});

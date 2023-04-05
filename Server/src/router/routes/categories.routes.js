@@ -1,6 +1,4 @@
 import { Router } from 'express';
-
-import { isAdmin } from "../../controllers/admin.js";
 import {all, one, add, update, remove} from '../../controllers/categories.js'
 
 const router = Router();
@@ -10,8 +8,8 @@ router.get("/:id", one);
 
 router.post("/add", add);
 
-router.put("/update", isAdmin, update);
+router.put("/update", update);
 
-router.delete("/remove", isAdmin, remove);
+router.delete("/remove", remove);
 
 export default router;

@@ -9,7 +9,6 @@ export const calculateTotalAmount = (cart) => {
 export const removeFromCart = (cart, id, idPackaging) => {
     const itemIndex = cart.findIndex(item => item.id === id && item.idPackaging === idPackaging);
     if (itemIndex === -1) {
-        console.log("removefrom")
         // Item not found, return the original cart
         return cart;
     }
@@ -30,12 +29,10 @@ export const addOneToCart = (cartLS, toolToAdd) => {
     const newCart = JSON.parse(JSON.stringify(cartLS));
     const itemFoundIndex = newCart.findIndex(t => (t.id === id) && (t.idPackaging === idPackaging));
 
-    if (itemFoundIndex === -1) {
-        console.log("ce produit et son packaging ne sont pas présents, on les ajoute")
+    if (itemFoundIndex === -1) { // product and packaging absent, add 1
         newCart.push({ id, idPackaging, quantity: 1, price, totalAmount, name });
     }
-    else {
-        console.log("Ce produit existe, on augmente la quantité")
+    else { // existing product, quantity +1
         newCart[itemFoundIndex].quantity += 1;
         const newTotalAmount = parseFloat(price) * newCart[itemFoundIndex].quantity;
         newCart[itemFoundIndex].totalAmount = newTotalAmount.toFixed(2);
@@ -52,8 +49,7 @@ export const deleteOneFromCart = (cartLS, toolToRemove) => {
     const itemFoundIndex = newCart.findIndex(t => (t.id === id) && (t.idPackaging === idPackaging));
     
 
-    if (itemFoundIndex >= 0) {
-        console.log("Existing product, minus one")
+    if (itemFoundIndex >= 0) {  //Existing product, minus one
         newCart[itemFoundIndex].quantity -= 1;
         const newTotalAmount = parseFloat(price) * newCart[itemFoundIndex].quantity;
         newCart[itemFoundIndex].totalAmount = newTotalAmount.toFixed(2);
@@ -62,8 +58,7 @@ export const deleteOneFromCart = (cartLS, toolToRemove) => {
         }
     }
     
-    if (itemFoundIndex === -1) {
-        console.log("error, not in the basket")
+    if (itemFoundIndex === -1) { //error, not in the basket
         return newCart;
     }
     localStorage.setItem("cart", JSON.stringify(newCart));

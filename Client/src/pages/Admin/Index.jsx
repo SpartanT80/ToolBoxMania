@@ -2,7 +2,6 @@ import Form from "./Form/Index";
 import ProductList from "./ProductList/Index";
 import styles from "./ProductList/productList.module.css";
 
-
 function Admin() {
     return (
 
