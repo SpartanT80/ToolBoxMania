@@ -37,13 +37,15 @@ export const one = async (req, res) => {
 
 export const add = async (req,res) => {
     try {
-        const query = "INSERT INTO packaging (title, description, image_name, image_alt) VALUES (?,?,?,?)";
+        if (req.user.isAdmin) {
+            const query = "INSERT INTO packaging (title, description, image_name, image_alt) VALUES (?,?,?,?)";
         const result = await Query.write(query, req.body);
         
         if(result.affectedRows){
             const msg = "Packaging added";
             res.json(success(msg, result));
         } else throw Error("Packaging not added, probable error in the sentence !!!")
+    }
     } catch (err) {
         throw Error(err);
     }
@@ -51,32 +53,35 @@ export const add = async (req,res) => {
 
 export const update = async (req,res) => {
     try {
-
-        const query = "UPDATE packaging SET title = ?, description = ?, image_name = ?, image_alt = ? WHERE id = ?";
-        const [result] = await Query.write(query, req.body);
-
-        if(result.affectedRows){
-            const msg = "Packaging modified.";
-            res.json(success(msg));
-
-        } else throw Error("Packaging not modified, probable error in the sentence.");
-        
-    } catch (err) {
-        throw Error(err);
+        if (req.user.isAdmin) {
+            const query = "UPDATE packaging SET title = ?, description = ?, image_name = ?, image_alt = ? WHERE id = ?";
+            const [result] = await Query.write(query, req.body);
+            
+            if(result.affectedRows){
+                const msg = "Packaging modified.";
+                res.json(success(msg));
+                
+            } else throw Error("Packaging not modified, probable error in the sentence.");
+        }
+            
+        } catch (err) {
+            throw Error(err);
     }
 }
 
 export const remove = async (req,res) => {
     try {
-        const query = "DELETE FROM packaging WHERE id = ?";
-        const [result] = await Query.remove(query, req.body.id);
-        
-        if(result.affectedRows){
-            const msg = "Packaging deleted.";
-            res.json(success(msg));
-
-        } else throw Error("Packaging not deleted, probable error in the sentence.");
-
+        if (req.user.isAdmin) {
+            const query = "DELETE FROM packaging WHERE id = ?";
+            const [result] = await Query.remove(query, req.body.id);
+            
+            if(result.affectedRows){
+                const msg = "Packaging deleted.";
+                res.json(success(msg));
+                
+            } else throw Error("Packaging not deleted, probable error in the sentence.");
+        }
+            
     } catch (err) {
         throw Error(err);
     }

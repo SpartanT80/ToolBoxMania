@@ -84,30 +84,34 @@ export const lastInserted = async (req, res) => {
 
 export const add_tool = async (req, res) => {
     try {
-        const query = "INSERT INTO tool (main_title, secondary_title, main_description, image_name, image_alt, ref_product, created_at, category_id) VALUES (?, ?, ?, ?, ?, ?, NOW(),  ?)";
-        const [result] = await Query.write(query, req.body);
-
-        if (result.affectedRows) {
-            const msg = "Tool added";
-            const toolId = result.insertId;
-            res.json({toolId: toolId});
-        } else { throw Error("Probable error in the sentence, tool not added !!!"); }
-
-    } catch (err) {
-        throw Error(err);
+        if (req.user.isAdmin) {
+            const query = "INSERT INTO tool (main_title, secondary_title, main_description, image_name, image_alt, ref_product, created_at, category_id) VALUES (?, ?, ?, ?, ?, ?, NOW(),  ?)";
+            const [result] = await Query.write(query, req.body);
+            
+            if (result.affectedRows) {
+                const msg = "Tool added";
+                const toolId = result.insertId;
+                res.json({toolId: toolId});
+            } else { throw Error("Probable error in the sentence, tool not added !!!"); }
+        }
+            
+        } catch (err) {
+            throw Error(err);
     }
 }
 
 export const add_toolPackaging = async (req, res) => {
     try {
-        const query = "INSERT INTO tool_packaging (quantity_in_stock, price, tool_id, packaging_id) VALUES (?, ?, ?, ?)";
-        const [result] = await Query.write(query, req.body);
-
-        if (result.affectedRows) {
-            const msg = "Information of tool : packaging and price added";
-            res.json(success(msg));
-
-        } else throw Error("Probable error in the sentence, packaging and price not added !!!");
+        if (req.user.isAdmin) {
+            const query = "INSERT INTO tool_packaging (quantity_in_stock, price, tool_id, packaging_id) VALUES (?, ?, ?, ?)";
+            const [result] = await Query.write(query, req.body);
+            
+            if (result.affectedRows) {
+                const msg = "Information of tool : packaging and price added";
+                res.json(success(msg));
+                
+            } else throw Error("Probable error in the sentence, packaging and price not added !!!");
+        }
 
     } catch (err) {
         throw Error(err);
@@ -116,15 +120,16 @@ export const add_toolPackaging = async (req, res) => {
 
 export const update = async (req, res) => {
     try {
-
-        const query = "UPDATE tool SET main_title = ?, secondary_title = ?, main_description = ?, image_name = ?, image_alt = ?, ref_product = ? WHERE id = ?";
-        const [result] = await Query.write(query, req.body);
-
-        if (result.affectedRows) {
-            const msg = "Tool modified.";
-            res.json(success(msg));
-
-        } else throw Error("Probable error in the sentence, tool not modified !!!");
+        if (req.user.isAdmin) {
+            const query = "UPDATE tool SET main_title = ?, secondary_title = ?, main_description = ?, image_name = ?, image_alt = ?, ref_product = ? WHERE id = ?";
+            const [result] = await Query.write(query, req.body);
+            
+            if (result.affectedRows) {
+                const msg = "Tool modified.";
+                res.json(success(msg));
+                
+            } else throw Error("Probable error in the sentence, tool not modified !!!");
+        }
 
     } catch (err) {
         throw Error(err);
@@ -133,13 +138,15 @@ export const update = async (req, res) => {
 
 export const remove = async (req, res) => {
     try {
-        const query = "DELETE FROM tool WHERE id = ?";
-        const [result] = await Query.remove(query, req.params.id);
-        if (result.affectedRows) {
-            const msg = "Tool deleted.";
-            res.json(success(msg));
-
-        } else throw Error("Probable error in the sentence, tool not  deleted!!!");
+        if (req.user.isAdmin) {
+            const query = "DELETE FROM tool WHERE id = ?";
+            const [result] = await Query.remove(query, req.params.id);
+            if (result.affectedRows) {
+                const msg = "Tool deleted.";
+                res.json(success(msg));
+                
+            } else throw Error("Probable error in the sentence, tool not  deleted!!!");
+        }
 
     } catch (err) {
         throw Error(err);

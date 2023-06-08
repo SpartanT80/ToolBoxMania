@@ -37,13 +37,15 @@ export const one = async (req, res) => {
 
 export const add = async (req,res) => {
     try {
-        const query = "INSERT INTO tool_packaging (price, quantity_in_stock, tool_id, packaging_id) VALUES (?,?,?,?)";
-        const [result] = await Query.write(query, req.body);
-        
-        if(result.affectedRows){
+        if (req.user.isAdmin) {
+            const query = "INSERT INTO tool_packaging (price, quantity_in_stock, tool_id, packaging_id) VALUES (?,?,?,?)";
+            const [result] = await Query.write(query, req.body);
+            
+            if(result.affectedRows){
             const msg = "tool_packaging added";
             res.json(success(msg, result));
         } else throw Error("tool_packaging not added, probable error in the sentence !!!")
+    }
     } catch (err) {
         throw Error(err);
     }
@@ -51,15 +53,16 @@ export const add = async (req,res) => {
 
 export const update = async (req,res) => {
     try {
-
-        const query = "UPDATE tool_packaging SET price = ?, quantity_in_stock = ?, packaging_id = ?, tool_id = ? WHERE id = ?";
-        const [result] = await Query.write(query, req.body);
-
-        if(result.affectedRows){
-            const msg = "tool_packaging modified.";
-            res.json(success(msg));
-
-        } else throw Error("tool_packaging not modified, probable error in the sentence.");
+        if (req.user.isAdmin) {
+            const query = "UPDATE tool_packaging SET price = ?, quantity_in_stock = ?, packaging_id = ?, tool_id = ? WHERE id = ?";
+            const [result] = await Query.write(query, req.body);
+            
+            if(result.affectedRows){
+                const msg = "tool_packaging modified.";
+                res.json(success(msg));
+                
+            } else throw Error("tool_packaging not modified, probable error in the sentence.");
+        }
         
     } catch (err) {
         throw Error(err);
@@ -68,15 +71,17 @@ export const update = async (req,res) => {
 
 export const remove = async (req,res) => {
     try {
-        const query = "DELETE FROM tool_packaging WHERE id = ?";
-        const [result] = await Query.remove(query, req.body.id);
-        
-        if(result.affectedRows){
-            const msg = "tool_packaging deleted.";
-            res.json(success(msg));
-
-        } else throw Error("tool_packaging not deleted, probable error in the sentence.");
-
+        if (req.user.isAdmin) {
+            const query = "DELETE FROM tool_packaging WHERE id = ?";
+            const [result] = await Query.remove(query, req.body.id);
+            
+            if(result.affectedRows){
+                const msg = "tool_packaging deleted.";
+                res.json(success(msg));
+                
+            } else throw Error("tool_packaging not deleted, probable error in the sentence.");
+        }
+            
     } catch (err) {
         throw Error(err);
     }

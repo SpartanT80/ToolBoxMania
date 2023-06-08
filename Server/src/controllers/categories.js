@@ -6,7 +6,7 @@ export const all = async (req, res) => {
         const query = "SELECT *  FROM category";
         const [categories] = await Query.find(query);
 
-        if(categories.length){
+        if (categories.length) {
             const msg = "Recuperation of all categories";
             res.status(200).json(success(msg, categories));
         } else {
@@ -21,9 +21,9 @@ export const all = async (req, res) => {
 export const one = async (req, res) => {
     try {
         const query = "SELECT * FROM category WHERE id = ?";
-        const category   = await Query.findOne(query, req.params.id);
-        
-        if(!category){
+        const category = await Query.findOne(query, req.params.id);
+
+        if (!category) {
             const msg = "This category doesn't exist in the Data Base";
             res.status(200).json(success(msg));
         } else {
@@ -35,47 +35,52 @@ export const one = async (req, res) => {
     }
 }
 
-export const add = async (req,res) => {
+export const add = async (req, res) => {
     try {
-        const query = "INSERT INTO category (title, description, image_name, image_alt) VALUES (?,?,?,?)";
-        const result = await Query.write(query, req.body);
-        
-        if(result.affectedRows){
-            const msg = "Category added";
-            res.json(success(msg, result));
-        } else throw Error("Category not added, probable error in the sentence !!!")
+        if (req.user.isAdmin) {
+
+            const query = "INSERT INTO category (title, description, image_name, image_alt) VALUES (?,?,?,?)";
+            const result = await Query.write(query, req.body);
+
+            if (result.affectedRows) {
+                const msg = "Category added";
+                res.json(success(msg, result));
+            } else throw Error("Category not added, probable error in the sentence !!!");
+        }
     } catch (err) {
         throw Error(err);
     }
 }
 
-export const update = async (req,res) => {
+export const update = async (req, res) => {
     try {
+        if (req.user.isAdmin) {
+            const query = "UPDATE category SET title = ?, description = ?, image_name = ?, image_alt = ? WHERE id = ?";
+            const [result] = await Query.write(query, req.body);
 
-        const query = "UPDATE category SET title = ?, description = ?, image_name = ?, image_alt = ? WHERE id = ?";
-        const [result] = await Query.write(query, req.body);
+            if (result.affectedRows) {
+                const msg = "Category modified.";
+                res.json(success(msg));
 
-        if(result.affectedRows){
-            const msg = "Category modified.";
-            res.json(success(msg));
-
-        } else throw Error("Category not modified, probable error in the sentence.");
-        
+            } else throw Error("Category not modified, probable error in the sentence.");
+        }
     } catch (err) {
         throw Error(err);
     }
 }
 
-export const remove = async (req,res) => {
+export const remove = async (req, res) => {
     try {
-        const query = "DELETE FROM category WHERE id = ?";
-        const [result] = await Query.remove(query, req.body.id);
-        
-        if(result.affectedRows){
-            const msg = "Category deleted.";
-            res.json(success(msg));
+        if (req.user.isAdmin) {
+            const query = "DELETE FROM category WHERE id = ?";
+            const [result] = await Query.remove(query, req.body.id);
 
-        } else throw Error("Category not deleted, probable error in the sentence.");
+            if (result.affectedRows) {
+                const msg = "Category deleted.";
+                res.json(success(msg));
+
+            } else throw Error("Category not deleted, probable error in the sentence.");
+        }
 
     } catch (err) {
         throw Error(err);
