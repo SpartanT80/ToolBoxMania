@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {all, one, lastInserted, add_tool, add_toolPackaging, update, remove, toolsByCategory} from "../../controllers/tool.js"
+import {all, one, lastInserted, add_tool, add_toolPackaging, update, remove, toolsByCategory} from "../../controllers/tool.js";
 
 const router = Router();
 

@@ -37,7 +37,6 @@ export const one = async (req, res) => {
 
 export const add = async (req,res) => {
     try {
-        if (req.user.isAdmin) {
             const query = "INSERT INTO packaging (title, description, image_name, image_alt) VALUES (?,?,?,?)";
         const result = await Query.write(query, req.body);
         
@@ -45,7 +44,7 @@ export const add = async (req,res) => {
             const msg = "Packaging added";
             res.json(success(msg, result));
         } else throw Error("Packaging not added, probable error in the sentence !!!")
-    }
+    
     } catch (err) {
         throw Error(err);
     }
@@ -53,7 +52,6 @@ export const add = async (req,res) => {
 
 export const update = async (req,res) => {
     try {
-        if (req.user.isAdmin) {
             const query = "UPDATE packaging SET title = ?, description = ?, image_name = ?, image_alt = ? WHERE id = ?";
             const [result] = await Query.write(query, req.body);
             
@@ -62,7 +60,7 @@ export const update = async (req,res) => {
                 res.json(success(msg));
                 
             } else throw Error("Packaging not modified, probable error in the sentence.");
-        }
+        
             
         } catch (err) {
             throw Error(err);
@@ -71,7 +69,6 @@ export const update = async (req,res) => {
 
 export const remove = async (req,res) => {
     try {
-        if (req.user.isAdmin) {
             const query = "DELETE FROM packaging WHERE id = ?";
             const [result] = await Query.remove(query, req.body.id);
             
@@ -80,7 +77,7 @@ export const remove = async (req,res) => {
                 res.json(success(msg));
                 
             } else throw Error("Packaging not deleted, probable error in the sentence.");
-        }
+        
             
     } catch (err) {
         throw Error(err);

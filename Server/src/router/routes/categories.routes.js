@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import {all, one, add, update, remove} from '../../controllers/categories.js'
+import {all, one, add, update, remove} from '../../controllers/categories.js';
 
 const router = Router();
+
 
 router.get("/all", all);
 router.get("/:id", one);

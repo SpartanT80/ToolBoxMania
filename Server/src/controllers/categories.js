@@ -37,7 +37,6 @@ export const one = async (req, res) => {
 
 export const add = async (req, res) => {
     try {
-        if (req.user.isAdmin) {
 
             const query = "INSERT INTO category (title, description, image_name, image_alt) VALUES (?,?,?,?)";
             const result = await Query.write(query, req.body);
@@ -46,7 +45,7 @@ export const add = async (req, res) => {
                 const msg = "Category added";
                 res.json(success(msg, result));
             } else throw Error("Category not added, probable error in the sentence !!!");
-        }
+        
     } catch (err) {
         throw Error(err);
     }
@@ -54,7 +53,6 @@ export const add = async (req, res) => {
 
 export const update = async (req, res) => {
     try {
-        if (req.user.isAdmin) {
             const query = "UPDATE category SET title = ?, description = ?, image_name = ?, image_alt = ? WHERE id = ?";
             const [result] = await Query.write(query, req.body);
 
@@ -63,7 +61,7 @@ export const update = async (req, res) => {
                 res.json(success(msg));
 
             } else throw Error("Category not modified, probable error in the sentence.");
-        }
+        
     } catch (err) {
         throw Error(err);
     }
@@ -71,7 +69,6 @@ export const update = async (req, res) => {
 
 export const remove = async (req, res) => {
     try {
-        if (req.user.isAdmin) {
             const query = "DELETE FROM category WHERE id = ?";
             const [result] = await Query.remove(query, req.body.id);
 
@@ -80,7 +77,7 @@ export const remove = async (req, res) => {
                 res.json(success(msg));
 
             } else throw Error("Category not deleted, probable error in the sentence.");
-        }
+        
 
     } catch (err) {
         throw Error(err);
