@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 05 avr. 2023 à 15:32
+-- Généré le : mer. 02 août 2023 à 16:26
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `tool` (
   `category_id` int UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `tool`
@@ -141,10 +141,7 @@ INSERT INTO `tool` (`id`, `main_title`, `secondary_title`, `main_description`, `
 (1, 'Tournevis', 'Pour tourner les vis', 'Utile pour visser', 'tournevis.avif', 'tournevis', 0, 0, '100', '2023-03-07 12:06:06', 2),
 (2, 'marteau', 'pour marteler', 'fait pour taper', 'marteau.avif', 'marteau', 0, 0, '101', '2023-03-07 21:38:52', 2),
 (10, 'visseuse', 'visseuse electrique', 'Pour visser sans effort', 'visseuse.avif', 'une visseuse met une vis dans du bois', 0, 0, '103', '2023-03-18 12:38:04', 1),
-(11, 'scie', 'scie a bois', 'avec toute ses dents', 'scie.avif', 'une scie', 0, 0, '104', '2023-03-18 12:45:16', 2),
-(36, 'aaaaa', 'ergvstrbgdtrb', 'dftbhdfybn', NULL, NULL, NULL, NULL, '65432', '2023-04-04 16:05:11', 3),
-(37, 'aaaaaaaaa', 'qqqqqqqqq', 'qqqqqqqqqq', NULL, NULL, NULL, NULL, 'sdtbsfgb', '2023-04-04 16:41:26', 3),
-(38, 'qqqqqqqq', 'qqqqqqqqq', 'qqqqqqqqqq', NULL, NULL, NULL, NULL, '', '2023-04-04 16:41:52', 3);
+(11, 'scie', 'scie a boiss', 'avec toute ses dents', 'scie.avif', 'une scie', 0, 0, '104', '2023-03-18 12:45:16', 2);
 
 -- --------------------------------------------------------
 
@@ -162,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `tool_packaging` (
   PRIMARY KEY (`id`),
   KEY `tool_packaging_ibfk_1` (`packaging_id`),
   KEY `tool_packaging_ibfk_2` (`tool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `tool_packaging`
@@ -173,10 +170,7 @@ INSERT INTO `tool_packaging` (`id`, `quantity_in_stock`, `price`, `tool_id`, `pa
 (2, 24, '17.00', 2, 4),
 (6, 12, '120.00', 10, 4),
 (7, 20, '15.00', 11, 4),
-(11, 20, '3.00', 1, 4),
-(21, 345, '3.00', 36, 3),
-(22, 12, '1090.00', 37, 4),
-(23, 12, '1090.00', 38, 4);
+(11, 20, '3.00', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -187,28 +181,27 @@ INSERT INTO `tool_packaging` (`id`, `quantity_in_stock`, `price`, `tool_id`, `pa
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
+  `isAdmin` tinyint NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `first_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `last_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `address` varchar(255) NOT NULL,
   `city` varchar(50) NOT NULL,
-  `postal_code` varchar(10) NOT NULL,
+  `postal_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `country` varchar(50) NOT NULL,
   `phone_number` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `created_at` datetime NOT NULL,
-  `isAdmin` tinyint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `password`, `first_name`, `last_name`, `address`, `city`, `postal_code`, `country`, `phone_number`, `created_at`, `isAdmin`) VALUES
-(6, 'test2@test.com', '$2b$10$IqXOQVfgBVnv8MFBid5I..hiFIWJ6hSXT45JjUxWQuzkTo4vabgh.', 'Jtestn', 'Doe', '123 Main St', 'Anytown', '12345', 'USA', '555-1234', '2023-03-10 08:49:34', 0),
-(8, 'test@test.com', '$2b$10$268CW7djqQNGmdFM2Ti7tuVcVVbn1Ex4LErUePAbB1.SvlT5ZC8j.', 'test', 'test', 'test', '12345', 'test', 'test', '0987654321', '2023-03-27 19:56:23', 1),
-(9, 'test9@test.com', '$2b$10$l54qojq2b6jDBAFdNMuiPuq2Q6maiddRhtmYq85AykpNm6s.xQrJC', 'flo', 'lo', 'ici', 'ams', '21345', 'far', '1234567890', '2023-03-29 10:08:19', 0);
+INSERT INTO `user` (`id`, `isAdmin`, `email`, `password`, `first_name`, `last_name`, `address`, `city`, `postal_code`, `country`, `phone_number`, `created_at`) VALUES
+(14, 1, 'admin@admin.com', '$2b$10$KHpxLgrhIzyO.EOPzDL9ZezUsNESzpMmwxjRzkdzPu7GPDiXTVusm', 'Admin', 'admin', '3 rue des platanes', 'Toul', '123', 'France', '0987654321', '2023-06-12 18:19:33'),
+(15, 0, 'user@user.com', '$2b$10$icMaRyXAOSp2lK59qLnMc.2eroM1/jMmqT3cyWpE7Ra8cKY0RSyrS', '', '', '', 'usercity', '', 'userland', '', '2023-06-12 18:19:48');
 
 --
 -- Contraintes pour les tables déchargées
