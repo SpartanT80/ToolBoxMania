@@ -19,6 +19,7 @@ function SingleTool() {
     const [price, setPrice] = useState(null);
     const [idPackaging, setIdPackaging] = useState(null);
     const [type, setType] = useState(null);
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -56,32 +57,43 @@ function SingleTool() {
         const newCart = addOneToCart(cart, toolToAdd);
         const totalAmount = calculateTotalAmount(newCart).toFixed(2);
         dispatch(modifyCart({ cart: newCart, totalAmount }));
+
+        setShowPopup(true);
+        setTimeout(() => {
+            setShowPopup(false);
+        }, 3000);
     };
 
     return (
         <>
+            {showPopup && (
+                <div className={style.popup}>
+                    <p>Tool added to cart!</p>
+                </div>
+            )}
+
             {tool ? (
                 <section className={style.section}>
                     <h3 className={style.toolTitle}>{tool.main_title}</h3>
                     <p className={style.toolDescription}>{tool.main_description}</p>
                     <img className={style.toolImg} src={`/img/tool/${tool.image_name}`} alt={tool.image_alt} />
                     <div className={style.toolVote}>
-                    {averageVote()}
-                    <p>Total reviews: {tool.vote_count}</p>
-                </div>
-                <form>
-                    <select value={idPackaging} onChange={changeHandler}>
-                        {
-                            tool.toolInfo.map((info, index) => {
-                                return (
-                                    <option key={index} value={info.idPackaging}>Packaging: {info.type}</option>
-                                )
-                            })
-                        }
-                    </select>
-                </form>
-                <p className={style.toolPrice}>{price}€</p>
-                <button className={style.addToCart} onClick={handleAddToCart}>Add To Cart !</button>
+                        {averageVote()}
+                        <p>Total reviews: {tool.vote_count}</p>
+                    </div>
+                    <form>
+                        <select value={idPackaging} onChange={changeHandler}>
+                            {
+                                tool.toolInfo.map((info, index) => {
+                                    return (
+                                        <option key={index} value={info.idPackaging}>Packaging: {info.type}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </form>
+                    <p className={style.toolPrice}>{price}€</p>
+                    <button className={style.addToCart} onClick={handleAddToCart}>Add To Cart !</button>
                 </section>
             ) : (
                 <p>Loading...</p>

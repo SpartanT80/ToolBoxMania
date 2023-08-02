@@ -20,8 +20,7 @@ function Router() {
             <Route path="/about" element={<About />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<HOC child={Dashboard} auth={true} />} />
-            <Route path="/dashboard" element={<HOC child={Dashboard} auth={true} />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/admin" element={<HOC child={Admin} auth={true} />}/>
         </Routes>
     )

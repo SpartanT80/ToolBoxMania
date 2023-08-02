@@ -36,9 +36,19 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
-.btndelete {
+.btnDelete {
     background-color: #ff4d4f;
 }
+
+.updateSection {
+    background-color: #f2f2f2;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 
 /* Tablet */
 

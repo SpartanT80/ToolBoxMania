@@ -118,6 +118,7 @@ export const add_toolPackaging = async (req, res) => {
 
 export const update = async (req, res) => {
     try {
+        
             const query = "UPDATE tool SET main_title = ?, secondary_title = ?, main_description = ?, image_name = ?, image_alt = ?, ref_product = ? WHERE id = ?";
             const [result] = await Query.write(query, req.body);
             

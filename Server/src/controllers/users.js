@@ -6,24 +6,39 @@ import jwt from 'jsonwebtoken';
 const { TOKEN_SECRET } = process.env;
 const saltRounds = 10;
 
-const checkToken = async (req, res) => {
+export const checkToken = async (req, res) => {
     try {
-        const query = "SELECT * FROM user WHERE id = ?";
-        const [user] = await Query.findOne(query, req.params.id);
-        if (user) {
-            const msg = "Utilisateur récupéré";
-            res.status(200).json(success(msg, user));
-        } else {
-            const msg = "Pas de compte avec ces identifiants";
-            res.status(200).json(success(msg));
+        const token = req.headers["x-access-token"] || req.headers["authorization"];
+        if (!token) {
+            return res.status(401).json({ error: "Token missing" });
         }
 
-    } catch (error) {
-        throw Error(error);
-    }
-}
+        jwt.verify(token, TOKEN_SECRET, async (err, decoded) => {
+            if (err) {
+                return res.status(401).json({ error: "Token expired" });
+            }
 
-const signup = async (req, res) => {
+            const query = "SELECT email, isAdmin FROM user WHERE id = ?";
+            const [user] = await Query.findOne(query, decoded.id);
+            if (user) {
+                if (user.isAdmin === 1) {
+                    const msg = "User recovered";
+                    res.status(200).json(success(msg, user));
+                } else {
+                    const msg = "User is not authorized as admin checktoken";
+                    res.status(403).json({ error: msg });
+                }
+            } else {
+                const msg = "User not found with this identifier";
+                res.status(200).json(success(msg));
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ error: "An error occurred while processing your request." });
+    }
+};
+
+export const signup = async (req, res) => {
     try {
         const query = "SELECT email, password FROM user WHERE email = ?";
         const [isUserExist] = await Query.findOne(query, req.body.email);
@@ -42,9 +57,9 @@ const signup = async (req, res) => {
                 phone_number: req.body.phone_number,
             };
 
-            const query = "INSERT INTO user (email, password, first_name, last_name, address, city, postal_code, country, phone_number, created_at, isAdmin) VALUES (?,?,?,?,?,?,?,?,?,NOW(),0)";
+            const query = "INSERT INTO user (isAdmin, email, password, first_name, last_name, address, city, postal_code, country, phone_number, created_at) VALUES (0,?,?,?,?,?,?,?,?,?,NOW())";
             const result = await Query.write(query, Object.values(data));
-            
+
             res.status(201).json(success("user created !", result));
         }
 
@@ -53,7 +68,7 @@ const signup = async (req, res) => {
     }
 }
 
-const signin = async (req, res) => {
+export const signin = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const query1 = "SELECT * FROM user WHERE email = ?";
@@ -64,11 +79,38 @@ const signin = async (req, res) => {
             return;
         }
         const isSame = await compare(password, user.password);
-        
+
         if (isSame) {
-            const TOKEN = jwt.sign({ id: user.id }, TOKEN_SECRET);
-            const { email } = user;
-            res.status(200).json(success("Connected", { TOKEN, email, first_name: user.first_name, last_name: user.last_name, address: user.address, city: user.city, postal_code: user.postal_code, country: user.country, phone_number: user.phone_number }));
+            const { isAdmin: userIsAdmin, email, first_name, last_name, address, city, postal_code, country, phone_number } = user;
+
+            const TOKEN = jwt.sign({
+                id: user.id,
+                isAdmin: userIsAdmin,
+                email,
+                first_name: first_name,
+                last_name: last_name,
+                address: address,
+                city: city,
+                postal_code: postal_code,
+                country: country,
+                phone_number: phone_number
+            },
+                TOKEN_SECRET,
+                { expiresIn: '1d' });
+
+            res.status(200).json(success("Connected", {
+                TOKEN,
+                isAdmin: userIsAdmin,
+                email,
+                first_name: first_name,
+                last_name: last_name,
+                address: address,
+                city: city,
+                postal_code: postal_code,
+                country: country,
+                phone_number: phone_number
+            }));
+            next();
         } else {
             res.status(401).json(error("Identification problem2"));
         }
@@ -77,4 +119,21 @@ const signin = async (req, res) => {
     }
 }
 
-export { checkToken, signup, signin };
+export const update = async (req, res) => {
+    try {
+        const { id } = req.user;
+        const { first_name, last_name, address, city, postal_code, country, phone_number } = req.body; 
+        
+        const query = "UPDATE user SET first_name = ?, last_name = ?, address = ?, city = ?, postal_code = ?, country = ?, phone_number = ? WHERE id = ?";
+        const [result] = await Query.write(query, [first_name, last_name, address, city, postal_code, country, phone_number, id]);
+
+        if (result.affectedRows) {
+            const msg = "Account modified.";
+            res.json(success(msg));
+        } else {
+            throw new Error("Probable error in the sentence, account not modified !!!");
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};

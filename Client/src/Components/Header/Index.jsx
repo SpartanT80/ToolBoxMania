@@ -23,6 +23,7 @@ function Header() {
         localStorage.removeItem("user");
     }
 
+
     return (
         <header className={style.headerCtn}>
 
@@ -45,6 +46,7 @@ function Header() {
                 <NavLink to="/tool">Tools</NavLink>
                 <NavLink to="/cart">Cart</NavLink>
 
+
                 {!user.isLogged ?
                     <NavLink to="/register" state={{ type: "sign in" }}>Sign In</NavLink>
                     :
@@ -53,6 +55,13 @@ function Header() {
                         <button className={style.CTA_signOut} onClick={handleSignOut}>Sign Out</button>
                     </>
                 }
+
+
+                {user.infos?.isAdmin ? (
+                        <NavLink to="/admin">Admin</NavLink>
+                )
+                    :
+                    ""}
             </nav>
 
         </header>

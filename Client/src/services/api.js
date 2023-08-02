@@ -6,8 +6,6 @@ async function getUserAuth(url, TOKEN){
     } catch(error) {
         return error
     }
-    // const response = await (await fetch(url)).json();
-    // return response;
 }
 
 async function getDatas(url){
@@ -18,25 +16,38 @@ async function getDatas(url){
     }
 }
 
-async function deleteDatas(url, id){
+async function getUserById(url, id) {
     try {
-        return await axios.delete(url, {datas:{id}});
+        return await axios.get(url, { params: { id } });
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+async function deleteDatas(url, id) {
+    try {
+        const TOKEN = localStorage.getItem('auth');
+        return await axios.delete(url, { data: { id }, headers: { "x-access-token": TOKEN } });
     } catch (error) {
         throw new Error(error)
     }
 }
-async function addDatas(url, datas){
+async function addDatas(url, datas) {
     try {
-        return await axios.post(url, datas);
+        const TOKEN = localStorage.getItem('auth');
+        return await axios.post(url, datas, { headers: { "x-access-token": TOKEN } });
     } catch (error) {
         throw new Error(error)
     }
 }
-async function updateDatas(url, datas){
+async function updateDatas(url, datas) {
     try {
-        return await axios.put(url, datas);
+        const TOKEN = localStorage.getItem('auth');
+        const response = await axios.put(url, datas, { headers: { "x-access-token": TOKEN } });
+        return response;
     } catch (error) {
-        throw new Error(error)
+        console.error('Update Error:', error);
+        throw new Error(error);
     }
 }
 
@@ -55,4 +66,4 @@ async function signin (datas) {
     }
 }
 
-export {getUserAuth, getDatas, deleteDatas, addDatas, updateDatas, signup, signin};
+export {getUserAuth, getDatas, getUserById, deleteDatas, addDatas, updateDatas, signup, signin};

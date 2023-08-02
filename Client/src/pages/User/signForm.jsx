@@ -24,7 +24,7 @@ function SignForm() {
         country: "",
         phone_number: "",
     });
-
+    
     const {
         email,
         password,
@@ -52,6 +52,7 @@ function SignForm() {
         try {
             const res = await signin(inputs);
             const user = {
+                isAdmin: res.data.result.isAdmin,
                 email: res.data.result.email,
                 first_name: res.data.result.first_name,
                 last_name: res.data.result.last_name,
@@ -61,8 +62,8 @@ function SignForm() {
                 country: res.data.result.country,
                 phone_number: res.data.result.phone_number,
             }
+
             localStorage.setItem("auth", res.data.result.TOKEN);
-            localStorage.setItem("user", JSON.stringify(user));
 
         
             dispatch(signIn(user));
@@ -109,6 +110,7 @@ function SignForm() {
                     type="password"
                     name="password"
                     id="password"
+                    autoComplete="off"
                     value={password}
                     onChange={handleInputChange}
                 />
