@@ -17,7 +17,6 @@ function Dashboard() {
             if (token) {
                 const decodedToken = jwt_decode(token);
                 setUser(decodedToken);
-                console.log("Decoded Token:", decodedToken);
             }
         }
     }, []);
@@ -48,10 +47,10 @@ function Dashboard() {
     };
 
     return (
-        <section className={style.ctn}>
+        <section>
             <h1>Dashboard</h1>
             {user ? (
-                <article className={style.info}>
+                <article>
                     {editMode ? (
                         <section className={style.editForm}>
                             <h3>Edit your account information:</h3>

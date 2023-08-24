@@ -1,0 +1,51 @@
+.editForm {
+    /* margin-top: 20px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+    padding: 20px;
+}
+
+.formGroup {
+    max-width: 600px;
+    margin: 20px;
+}
+
+.formGroup label {
+    display: block;
+    margin: 5px;
+    font-weight: bold;
+}
+
+.formGroup input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px;
+    font-size: 1.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.btnSave, .btnRegister {
+    flex: 1;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btnSave {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.btnRegister {
+    background-color: #db4343;
+    color: #0c4107;
+    font-size: large;
+}
+
+
+.btnSave:hover, .btnRegister:hover {
+    opacity: 0.8;
+}

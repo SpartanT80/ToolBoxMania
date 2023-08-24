@@ -5,6 +5,8 @@ import { signup, signin } from "../../services/api";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../store/slices/user";
 
+import style from "./signForm.module.css";
+
 function SignForm() {
     const { state } = useLocation();
     const type = state?.type || "sign in";
@@ -94,8 +96,8 @@ function SignForm() {
     };
 
     return (
-        <main>
-            <form onSubmit={handleSubmit}>
+        <main  className={style.editForm}>
+            <form className={style.formGroup} onSubmit={handleSubmit}>
                 <label htmlFor="email">Email:</label>
                 <input
                     type="email"
@@ -182,7 +184,7 @@ function SignForm() {
                         />
                     </>
                 )}
-                <input type="submit" value={type} />
+                <input className={style.btnSave} type="submit" value={type} />
             </form>
 
             {msg && <p>{msg}</p>}
@@ -190,8 +192,8 @@ function SignForm() {
             {type === "sign in" && (
                 <p>
                     No account? Create one {" "}
-                    <Link to={"/register"} state={{ type: "sign up" }}>
-                        👉 here 👈
+                    <Link className={style.btnRegister} to={"/register"} state={{ type: "sign up" }}>
+                        👉 Register 👈
                     </Link>
                 </p>
             )}

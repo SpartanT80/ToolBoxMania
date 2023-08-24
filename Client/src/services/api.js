@@ -10,7 +10,8 @@ async function getUserAuth(url, TOKEN){
 
 async function getDatas(url){
     try{
-        return await axios.get(url);
+        const TOKEN = localStorage.getItem('auth');
+        return await axios.get(url, {headers: { "x-access-token": TOKEN } });
     } catch(error) {
         throw new Error(error)
     }
