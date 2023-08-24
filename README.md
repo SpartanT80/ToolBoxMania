@@ -52,18 +52,22 @@ Coté server :
 ```
 $ git clone https://github.com/SpartanT80/ToolBoxMania.git
 ```
-2. Rendez-vous dans le dossier client et installez les dépendances :
+3. Rendez-vous dans le dossier ToolBoxMania :
+```
+$ cd ToolBoxMania
+```
+3. Rendez-vous dans le dossier client et installez les dépendances :
 ```
 $ cd client
 $ npm install
 ```
-3. Retournez dans le dossier de base, puis rendez-vous dans le dossier server et installez les dépendances :
+4. Retournez dans le dossier de base, puis rendez-vous dans le dossier server et installez les dépendances :
 ```
 $ cd ..
 $ cd server
 $ npm install
 ```
-4. Toujours dans le dossier server, créez un fichier `.env` et ajoutez le code suivant en le complétant :
+5. Toujours dans le dossier server, créez un fichier `.env` et ajoutez le code suivant en le complétant :
 ```
 LOCAL_PORT = " "
 HOST = " "
@@ -77,7 +81,7 @@ TOKEN_SECRET = " "
 
 API_WEATHER_KEY = " "
 ```
-5. Afin de pouvoir lancer l'application, exécutez cette commande dans les dossiers server et client dans des terminaux séparés :
+6. Afin de pouvoir lancer l'application, exécutez cette commande dans les dossiers server et client dans des terminaux séparés :
 ```
 $ npm start
 ```
