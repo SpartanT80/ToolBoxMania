@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 02 août 2023 à 16:26
+-- Généré le : ven. 25 août 2023 à 23:36
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -20,31 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `toolboxmania`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `category`
---
-
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL,
-  `description` text NOT NULL,
-  `image_name` varchar(255) NOT NULL,
-  `image_alt` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `category`
---
-
-INSERT INTO `category` (`id`, `title`, `description`, `image_name`, `image_alt`) VALUES
-(1, 'Powered tools', 'The best of the powered tools the world can offer to you', 'power_tool.avif', 'power tool'),
-(2, 'Manual tool', 'Because when the apocalypse will come, you will always need some manual job to be done', 'manual_tool.png', 'manual tool'),
-(3, 'Jardinage', 'Pour aller dans le jardin', 'jardinage.avif', 'Outils de jardinage');
 
 -- --------------------------------------------------------
 
@@ -131,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `tool` (
   `category_id` int UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `tool`
@@ -142,6 +117,31 @@ INSERT INTO `tool` (`id`, `main_title`, `secondary_title`, `main_description`, `
 (2, 'marteau', 'pour marteler', 'fait pour taper', 'marteau.avif', 'marteau', 0, 0, '101', '2023-03-07 21:38:52', 2),
 (10, 'visseuse', 'visseuse electrique', 'Pour visser sans effort', 'visseuse.avif', 'une visseuse met une vis dans du bois', 0, 0, '103', '2023-03-18 12:38:04', 1),
 (11, 'scie', 'scie a boiss', 'avec toute ses dents', 'scie.avif', 'une scie', 0, 0, '104', '2023-03-18 12:45:16', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tool_category`
+--
+
+DROP TABLE IF EXISTS `tool_category`;
+CREATE TABLE IF NOT EXISTS `tool_category` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `image_name` varchar(255) NOT NULL,
+  `image_alt` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `tool_category`
+--
+
+INSERT INTO `tool_category` (`id`, `title`, `description`, `image_name`, `image_alt`) VALUES
+(1, 'Powered tools', 'The best of the powered tools the world can offer to you', 'power_tool.avif', 'power tool'),
+(2, 'Manual tool', 'Because when the apocalypse will come, you will always need some manual job to be done', 'manual_tool.png', 'manual tool'),
+(3, 'Jardinage', 'When you need to go make your food.', 'jardinage.avif', 'Outils de jardinage');
 
 -- --------------------------------------------------------
 
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `tool_packaging` (
   PRIMARY KEY (`id`),
   KEY `tool_packaging_ibfk_1` (`packaging_id`),
   KEY `tool_packaging_ibfk_2` (`tool_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `tool_packaging`
@@ -184,6 +184,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `isAdmin` tinyint NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `company` varchar(50) NOT NULL,
   `first_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `last_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `address` varchar(255) NOT NULL,
@@ -199,9 +200,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `isAdmin`, `email`, `password`, `first_name`, `last_name`, `address`, `city`, `postal_code`, `country`, `phone_number`, `created_at`) VALUES
-(14, 1, 'admin@admin.com', '$2b$10$KHpxLgrhIzyO.EOPzDL9ZezUsNESzpMmwxjRzkdzPu7GPDiXTVusm', 'Admin', 'admin', '3 rue des platanes', 'Toul', '123', 'France', '0987654321', '2023-06-12 18:19:33'),
-(15, 0, 'user@user.com', '$2b$10$icMaRyXAOSp2lK59qLnMc.2eroM1/jMmqT3cyWpE7Ra8cKY0RSyrS', '', '', '', 'usercity', '', 'userland', '', '2023-06-12 18:19:48');
+INSERT INTO `user` (`id`, `isAdmin`, `email`, `password`, `company`, `first_name`, `last_name`, `address`, `city`, `postal_code`, `country`, `phone_number`, `created_at`) VALUES
+(14, 1, 'admin@admin.com', '$2b$10$KHpxLgrhIzyO.EOPzDL9ZezUsNESzpMmwxjRzkdzPu7GPDiXTVusm', '0gdrj', 'Admin', 'admin', '3 rue des platanes', 'Toul', '123', 'France', '0987654321', '2023-06-12 18:19:33'),
+(15, 0, 'user@user.com', '$2b$10$icMaRyXAOSp2lK59qLnMc.2eroM1/jMmqT3cyWpE7Ra8cKY0RSyrS', 'apple', '', '', '', 'usercity', '', 'userland', '', '2023-06-12 18:19:48');
 
 --
 -- Contraintes pour les tables déchargées
@@ -224,7 +225,7 @@ ALTER TABLE `order_tool`
 -- Contraintes pour la table `tool`
 --
 ALTER TABLE `tool`
-  ADD CONSTRAINT `tool_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `tool_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `tool_category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `tool_packaging`
