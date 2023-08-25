@@ -3,7 +3,7 @@ import Query from "../model/query.js";
 
 export const all = async (req, res) => {
     try {
-        const query = "SELECT *  FROM category";
+        const query = "SELECT *  FROM tool_category";
         const [categories] = await Query.find(query);
 
         if (categories.length) {
@@ -20,7 +20,7 @@ export const all = async (req, res) => {
 
 export const one = async (req, res) => {
     try {
-        const query = "SELECT * FROM category WHERE id = ?";
+        const query = "SELECT * FROM tool_category WHERE id = ?";
         const category = await Query.findOne(query, req.params.id);
 
         if (!category) {
@@ -38,7 +38,7 @@ export const one = async (req, res) => {
 export const add = async (req, res) => {
     try {
 
-            const query = "INSERT INTO category (title, description, image_name, image_alt) VALUES (?,?,?,?)";
+            const query = "INSERT INTO tool_category (title, description, image_name, image_alt) VALUES (?,?,?,?)";
             const result = await Query.write(query, req.body);
 
             if (result.affectedRows) {
@@ -53,7 +53,7 @@ export const add = async (req, res) => {
 
 export const update = async (req, res) => {
     try {
-            const query = "UPDATE category SET title = ?, description = ?, image_name = ?, image_alt = ? WHERE id = ?";
+            const query = "UPDATE tool_category SET title = ?, description = ?, image_name = ?, image_alt = ? WHERE id = ?";
             const [result] = await Query.write(query, req.body);
 
             if (result.affectedRows) {
@@ -69,7 +69,7 @@ export const update = async (req, res) => {
 
 export const remove = async (req, res) => {
     try {
-            const query = "DELETE FROM category WHERE id = ?";
+            const query = "DELETE FROM tool_category WHERE id = ?";
             const [result] = await Query.remove(query, req.body.id);
 
             if (result.affectedRows) {
