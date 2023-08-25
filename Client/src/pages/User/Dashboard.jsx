@@ -56,6 +56,11 @@ function Dashboard() {
                             <h3>Edit your account information:</h3>
                             
                             <div className={style.formGroup}>
+                                <label htmlFor="company">Your company:</label>
+                                <input type="text" id="company" name="company" value={user.company} onChange={handleInputChange} />
+                            </div>
+
+                            <div className={style.formGroup}>
                                 <label htmlFor="address">Your address:</label>
                                 <input type="text" id="address" name="address" value={user.address} onChange={handleInputChange} />
                             </div>
@@ -88,6 +93,7 @@ function Dashboard() {
                     ) : (
                         <>
                             <h3>Here you will find all the information about your account:</h3>
+                            <p><strong>Company:</strong> {user.company}</p>
                             <p><strong>First name:</strong> {user.first_name}</p>
                             <p><strong>Last name:</strong> {user.last_name}</p>
                             <p><strong>Your address:</strong> {user.address}</p>

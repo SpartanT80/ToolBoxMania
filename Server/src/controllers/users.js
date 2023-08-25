@@ -48,6 +48,7 @@ export const signup = async (req, res) => {
             const data = {
                 email: req.body.email,
                 password: hashedPWD,
+                company: req.body.company,
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
                 address: req.body.address,
@@ -57,7 +58,7 @@ export const signup = async (req, res) => {
                 phone_number: req.body.phone_number,
             };
 
-            const query = "INSERT INTO user (isAdmin, email, password, first_name, last_name, address, city, postal_code, country, phone_number, created_at) VALUES (0,?,?,?,?,?,?,?,?,?,NOW())";
+            const query = "INSERT INTO user (isAdmin, email, password, company, first_name, last_name, address, city, postal_code, country, phone_number, created_at) VALUES (0,?,?,?,?,?,?,?,?,?,?,NOW())";
             const result = await Query.write(query, Object.values(data));
 
             res.status(201).json(success("user created !", result));
@@ -81,12 +82,13 @@ export const signin = async (req, res, next) => {
         const isSame = await compare(password, user.password);
 
         if (isSame) {
-            const { isAdmin: userIsAdmin, email, first_name, last_name, address, city, postal_code, country, phone_number } = user;
+            const { isAdmin: userIsAdmin, email, company, first_name, last_name, address, city, postal_code, country, phone_number } = user;
 
             const TOKEN = jwt.sign({
                 id: user.id,
                 isAdmin: userIsAdmin,
                 email,
+                company: company,
                 first_name: first_name,
                 last_name: last_name,
                 address: address,
@@ -102,6 +104,7 @@ export const signin = async (req, res, next) => {
                 TOKEN,
                 isAdmin: userIsAdmin,
                 email,
+                company: company,
                 first_name: first_name,
                 last_name: last_name,
                 address: address,
@@ -122,10 +125,10 @@ export const signin = async (req, res, next) => {
 export const update = async (req, res) => {
     try {
         const { id } = req.user;
-        const { first_name, last_name, address, city, postal_code, country, phone_number } = req.body; 
+        const { company, first_name, last_name, address, city, postal_code, country, phone_number } = req.body; 
         
-        const query = "UPDATE user SET first_name = ?, last_name = ?, address = ?, city = ?, postal_code = ?, country = ?, phone_number = ? WHERE id = ?";
-        const [result] = await Query.write(query, [first_name, last_name, address, city, postal_code, country, phone_number, id]);
+        const query = "UPDATE user SET company = ?, first_name = ?, last_name = ?, address = ?, city = ?, postal_code = ?, country = ?, phone_number = ? WHERE id = ?";
+        const [result] = await Query.write(query, [company, first_name, last_name, address, city, postal_code, country, phone_number, id]);
 
         if (result.affectedRows) {
             const msg = "Account modified.";

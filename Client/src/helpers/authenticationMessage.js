@@ -5,10 +5,10 @@ import { Link } from "react-router-dom"; // Import the Link component
 function AuthenticationMessage() {
     return (
         <>
-            <h1>Welcome to ToolBoxMania !!!</h1>
-            <h2>We are a WEB SHOP for professional</h2>
+            <h1>Welcome to ToolBoxMania!</h1>
+            <h2 className="authenticateText">Your Ultimate Destination for Professional Tools</h2>
+            <Link className="authenticateLink" to="/register">Register or Sign In to Explore Our Premium Product Range</Link>
 
-            <Link to="/register">Click here to register  or sign in and see all our awesome products !!!</Link>
         </>
     );
 }

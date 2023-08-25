@@ -55,3 +55,25 @@ p {
     padding: 10px;
     margin: 10px;
 }
+
+.authenticateText {
+    text-decoration: none;
+    margin: 20px 0 30px 0;
+}
+
+.authenticateLink {
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #db4343;
+    border: 4px outset rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 10px 25px;
+    cursor: pointer;
+    transition: background-color 0.5s, transform 0.5s;
+}
+
+.authenticateLink:hover {
+    background-color: #ff6666;
+    box-shadow: rgba(0, 0, 0, 0.75) 0px 15px 35px;
+}

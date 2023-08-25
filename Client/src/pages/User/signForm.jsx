@@ -18,6 +18,7 @@ function SignForm() {
     const [inputs, setInputs] = useState({
         email: "",
         password: "",
+        company: "",
         first_name: "",
         last_name: "",
         address: "",
@@ -30,6 +31,7 @@ function SignForm() {
     const {
         email,
         password,
+        company,
         first_name,
         last_name,
         address,
@@ -56,6 +58,7 @@ function SignForm() {
             const user = {
                 isAdmin: res.data.result.isAdmin,
                 email: res.data.result.email,
+                company: res.data.result.company,
                 first_name: res.data.result.first_name,
                 last_name: res.data.result.last_name,
                 address: res.data.result.address,
@@ -81,6 +84,7 @@ function SignForm() {
             setInputs({
                 email: "",
                 password: "",
+                company: "",
                 first_name: "",
                 last_name: "",
                 address: "",
@@ -119,6 +123,15 @@ function SignForm() {
 
                 {type === "sign up" && (
                     <>
+                        <label htmlFor="company">Company:</label>
+                        <input
+                            type="text"
+                            name="company"
+                            id="company"
+                            value={first_name}
+                            onChange={handleInputChange}
+                        />
+
                         <label htmlFor="first_name">First Name:</label>
                         <input
                             type="text"

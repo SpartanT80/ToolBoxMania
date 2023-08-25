@@ -6,6 +6,7 @@ const userSlice = createSlice({
         infos: {
             isAdmin: false,
             email: null,
+            company: null,
             first_name: null,
             last_name: null,
             address: null,
