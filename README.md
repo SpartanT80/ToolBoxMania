@@ -78,8 +78,6 @@ DB_USER = " "
 DB_PWD = 
 
 TOKEN_SECRET = " "
-
-API_WEATHER_KEY = " "
 ```
 6. Afin de pouvoir lancer l'application, exécutez cette commande dans les dossiers server et client dans des terminaux séparés :
 ```
